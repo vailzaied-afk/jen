@@ -3,6 +3,7 @@ package ru.hogwarts.school.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
 @Entity
 public class Faculty {
     @Id
@@ -10,6 +11,7 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
+
     public Faculty() {
     }
 

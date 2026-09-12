@@ -51,6 +51,7 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping
     public ResponseEntity<Collection<Student>> getStudents(@RequestParam(required = false) Integer age) {
         if (age != null) {

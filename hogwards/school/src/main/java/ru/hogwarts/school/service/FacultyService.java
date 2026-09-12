@@ -7,9 +7,11 @@ import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
 import java.util.List;
+
 @Service
 public class FacultyService {
     private final FacultyRepository facultyRepository;
+
     @Autowired
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
@@ -36,11 +38,12 @@ public class FacultyService {
     public void deleteFaculty(Long facultyId) {
         facultyRepository.deleteById(facultyId);
     }
+
     public List<Faculty> filterByColor(String color) {
         return facultyRepository.findByColorIgnoreCase(color);
     }
 
-    public Collection<Faculty> getAllFaculties(){
+    public Collection<Faculty> getAllFaculties() {
         return facultyRepository.findAll();
     }
 
