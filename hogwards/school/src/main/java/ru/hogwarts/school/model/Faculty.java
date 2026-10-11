@@ -1,10 +1,11 @@
 package ru.hogwarts.school.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +23,17 @@ public class Faculty {
         this.name = name;
         this.color = color;
     }
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
 
     public Long getId() {
         return id;
@@ -59,4 +71,6 @@ public class Faculty {
     public int hashCode() {
         return Objects.hash(id, name, color);
     }
+
+
 }

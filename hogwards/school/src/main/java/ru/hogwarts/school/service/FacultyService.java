@@ -43,6 +43,10 @@ public class FacultyService {
         return facultyRepository.findByColorIgnoreCase(color);
     }
 
+    public List<Faculty> filterByName(String name) {
+        return facultyRepository.findByNameIgnoreCase(name);
+    }
+
     public Collection<Faculty> getAllFaculties() {
         return facultyRepository.findAll();
     }
