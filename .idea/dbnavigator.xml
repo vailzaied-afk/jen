@@ -11,6 +11,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
     <assistants>
+      <assistant-state connection-id="f8eeda0b-a901-4d03-8093-c66a5b1ad59d" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
+        <tools />
+        <mcp-servers />
+      </assistant-state>
       <assistant-state connection-id="f8eeda0b-a901-4d03-8093-c66a5b1ad59d" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="997E998365EC4408BD7208D50499129C" availability="AVAILABLE" acknowledgement="ENGAGED" selected="true">
         <chats>
           <chat id="997E998365EC4408BD7208D50499129C" title="" session-signature="" timestamp="1791747170810">
@@ -18,10 +22,6 @@
             <context mode="DEVELOPMENT" provider="" profile="" model="" action="" interactive="true" />
           </chat>
         </chats>
-        <tools />
-        <mcp-servers />
-      </assistant-state>
-      <assistant-state connection-id="f8eeda0b-a901-4d03-8093-c66a5b1ad59d" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
         <mcp-servers />
       </assistant-state>
@@ -83,7 +83,12 @@ SELECT * FROM public.student ORDER BY age;]]></console>
     <filters />
   </component>
   <component name="DBNavigator.Project.Settings">
-    <states />
+    <states>
+      <state category="SECRET_STORAGE_MIGRATION">
+        <cleaned value="true" />
+        <migrated value="true" />
+      </state>
+    </states>
     <connections>
       <connection source-id="" id="f8eeda0b-a901-4d03-8093-c66a5b1ad59d" active="true" signed="true">
         <database>
