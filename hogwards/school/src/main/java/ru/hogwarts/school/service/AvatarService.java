@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
@@ -12,6 +13,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -28,6 +30,10 @@ public class AvatarService {
         this.studentRepository = studentRepository;
         this.avatarRepository = avatarRepository;
         this.avatarsDir = avatarsDir;
+    }
+    public List<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize){
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return avatarRepository.findAll(pageRequest).getContent();
     }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {

@@ -8,13 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.AvatarService;
 
 import java.io.*;
+import java.util.List;
 
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/avatar")
 public class AvatarController {
     private final AvatarService avatarService;
 
@@ -41,5 +43,12 @@ public class AvatarController {
     @GetMapping(value = "/{studentId}/avatar-from-file")
     public void downloadAvatarFromFile(@PathVariable Long studentId, HttpServletResponse response) throws  IOException{
         avatarService.downloadAvatarFromDir(studentId, response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Avatar>> getAllAvatars(@RequestParam("page") Integer pageNumber,
+                                                      @RequestParam("size") Integer pageSize) {
+        List<Avatar> avatars = avatarService.getAllAvatars(pageNumber, pageSize);
+        return ResponseEntity.ok(avatars);
     }
 }
