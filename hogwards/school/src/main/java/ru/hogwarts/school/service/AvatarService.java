@@ -1,6 +1,8 @@
 package ru.hogwarts.school.service;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class AvatarService {
     private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
     private final String avatarsDir;
+    private static final Logger logger = LoggerFactory.getLogger(AvatarService.class);
+
 
     public AvatarService(StudentRepository studentRepository,
                          AvatarRepository avatarRepository,
@@ -32,13 +36,20 @@ public class AvatarService {
         this.avatarsDir = avatarsDir;
     }
     public List<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize){
+        logger.info("Was invoked method for get all avatars");
+
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+        logger.info("Was invoked method for upload avatar");
+
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> {
+            logger.error("There is not student with id = " + studentId);
+            return new IllegalArgumentException("Student not found");
+        });
+
 
         Path filePath = Path.of(avatarsDir, studentId + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -63,11 +74,16 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long studentId) {
-        return avatarRepository.findByStudentId(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Avatar not found"));
+        logger.info("Was invoked method for find avatar for studentId = {}", studentId);
+        return avatarRepository.findByStudentId(studentId).orElseThrow(() -> {
+            logger.error("Avatar for student with id = {} not found", studentId);
+            return new IllegalArgumentException("Avatar not found");
+        });
     }
 
+
     public void downloadAvatarFromDir(Long studentId, HttpServletResponse response) throws IOException {
+        logger.info("Was invoked method for download avatar from dir for studentId = {}", studentId);
         Avatar avatar = findAvatar(studentId);
         Path path = Path.of(avatar.getFilePath());
 
@@ -85,6 +101,7 @@ public class AvatarService {
     }
 
     private String getExtensions(String fileName) {
+        logger.debug("Getting extension for file = {}", fileName);
         if (fileName == null || !fileName.contains(".")) {
             return "png";
         }
