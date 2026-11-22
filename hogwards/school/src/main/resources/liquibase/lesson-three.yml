@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: student
+      changes:
+        - createIndex:
+            tableName: student
+            indexName: student_name_idx
+            columns:
+              - column:
+                  name: name
+        - createIndex:
+            tableName: faculty
+            indexName: faculty_name_color_idx
+            columns:
+              - column:
+                  name: name
+              - column:
+                  name: color

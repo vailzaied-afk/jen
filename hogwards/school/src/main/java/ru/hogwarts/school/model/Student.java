@@ -1,5 +1,6 @@
 package ru.hogwarts.school.model;
 
+import aj.org.objectweb.asm.commons.Remapper;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
@@ -26,6 +27,8 @@ public class Student {
         this.name = name;
         this.age = age;
     }
+
+
 
     public Faculty getFaculty() {
         return faculty;
