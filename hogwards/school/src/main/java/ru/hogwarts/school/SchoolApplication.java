@@ -5,6 +5,8 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.stream.Stream;
+
 @SpringBootApplication
 @OpenAPIDefinition
 
@@ -14,6 +16,6 @@ public class SchoolApplication {
         SpringApplication app = new SpringApplication(SchoolApplication.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
-    }
 
+    }
 }
